@@ -12,8 +12,8 @@ class Crawler:
         print(word)
         print(wordnum)
 
-
     def crawler_fun(self, url):
+        res_data = ""
         try:
             response = urllib.request.urlopen(url, timeout=10)
             html_cont = response.read()
@@ -49,8 +49,6 @@ class Crawler:
         data = self.crawler_fun(root_url)
         words = self.extract_words(data)
         return words
-
-
 
 # if __name__ == '__main__':
 #     word = '习近平'

@@ -14,8 +14,6 @@ from expansion.models import CoOccurrence
 from .crawler import Crawler
 
 
-
-
 def generate_coOcurrence(request):
     try:
         strr = request.GET.get('str')
@@ -42,16 +40,7 @@ def generate_crawler(request):
         num = int(request.GET.get('num'))
         my_crawler = Crawler(key_word, num)
         res = my_crawler.generate_list()
-        #res.append(my_crawler.wordnum)
+        # res.append(my_crawler.wordnum)
         return JsonResponse(res, safe=False)
     except ValueError as e:
         return Response(e.args[0], status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
-
-
-
-

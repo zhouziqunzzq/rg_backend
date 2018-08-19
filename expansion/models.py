@@ -13,8 +13,16 @@ class Vocab(models.Model):
 
 
 class CoOccurrence(models.Model):
-    word1_id = models.ForeignKey(Vocab, related_name='word1')
-    word2_id = models.ForeignKey(Vocab, related_name='word2')
+    word1_id = models.ForeignKey(
+        Vocab,
+        related_name='word1',
+        on_delete=models.CASCADE
+    )
+    word2_id = models.ForeignKey(
+        Vocab,
+        related_name='word2',
+        on_delete=models.CASCADE
+    )
     frequency = models.IntegerField()
     class Meta:
         db_table = 'co_occurrences'
