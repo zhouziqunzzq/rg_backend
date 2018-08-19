@@ -7,9 +7,9 @@ class Vocab(models.Model):
 
     def __str__(self):
         return self.word
+
     class Meta:
         db_table = 'vocabs'
-
 
 
 class CoOccurrence(models.Model):
@@ -24,5 +24,6 @@ class CoOccurrence(models.Model):
         on_delete=models.CASCADE
     )
     frequency = models.IntegerField()
+
     class Meta:
         db_table = 'co_occurrences'

@@ -4,7 +4,7 @@ from django.db import models
 class Template(models.Model):
     name = models.CharField(max_length=30)
 
-    def _str_(self):
+    def __str__(self):
         return self.name
 
 
@@ -14,8 +14,8 @@ class Verse(models.Model):
         on_delete=models.CASCADE
     )
 
-    def _str_(self):
-        return self.template.name
+    def __str__(self):
+        return self.template.name + " - Verse(" + str(self.id) + ")"
 
 
 class Sentence(models.Model):
@@ -27,5 +27,6 @@ class Sentence(models.Model):
         on_delete=models.CASCADE
     )
 
-    def _str_(self):
-        return self.verse.name
+    def __str__(self):
+        return self.verse.template.name + " - Verse(" + str(self.verse.id) \
+               + ") - Sentence(" + str(self.id) + ")"
