@@ -130,3 +130,6 @@ STATIC_URL = '/static/'
 # CORS settings
 # https://github.com/ottoyiu/django-cors-headers/#configuration
 CORS_ORIGIN_ALLOW_ALL = True
+
+# tf flask server settings
+TF_VERSE_GENERATE_API = 'http://127.0.0.1:10000/generate/verse'

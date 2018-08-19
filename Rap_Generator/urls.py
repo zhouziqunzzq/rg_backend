@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from template.views import get_template
 from template.views import get_templates
+from generate.views import *
 
 from expansion.views import *
 
@@ -25,7 +26,8 @@ urlpatterns = [
     url(r'^template/(?P<id>[0-9]+)', get_template),
     url(r'^templates/', get_templates),
     url(r'^co_exist/', generate_coOcurrence),
-    url(r'^crawler', generate_crawler)
+    url(r'^crawler', generate_crawler),
+    url(r'^generate/verse', generate_verse),
 
     # (?P<str>[a-zA-Z]+
 ]
