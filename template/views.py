@@ -9,7 +9,7 @@ from django.core import serializers
 from django.conf import settings
 import json
 from template.models import Template
-from template.models import Sentence
+# from template.models import Sentence
 from template.models import Verse
 
 
@@ -18,14 +18,14 @@ def get_template(request, id):
         # template_id = int(request.GET.get('id'))
         template_id = id
         template_name = Template.objects.get(pk=template_id).name
-        verseList = list(Verse.objects.filter(template_id=template_id).values())
-        for index in range(len(verseList)):
-            dict = verseList[index]
-            dict['sentenceList'] = list(Sentence.objects.filter(verse_id=dict['id']).values())
+        verse_list = list(Verse.objects.filter(template_id=template_id).values())
+        # for index in range(len(verseList)):
+        #     dict = verseList[index]
+        #     dict['sentenceList'] = list(Sentence.objects.filter(verse_id=dict['id']).values())
         my_dict = {
             "template_name": template_name,
             "template_id": template_id,
-            "verseList": verseList
+            "verse_list": verse_list
         }
         return JsonResponse(my_dict, safe=False)
         # return JsonResponse(['love', 'money', 'sex'], safe=False)
@@ -38,16 +38,16 @@ def get_templates(request):
     try:
         # template_name = Template.objects.get(pk=template_id).name
 
-        templatelist = list(Template.objects.all().values())
-        for i in range(len(templatelist)):
-            mydict = templatelist[i]
-            verseList = list(Verse.objects.filter(template_id=mydict['id']).values())
-            for index in range(len(verseList)):
-                dict = verseList[index]
-                dict['sentenceList'] = list(Sentence.objects.filter(verse_id=dict['id']).values())
-            mydict['verseList'] = verseList
+        template_list = list(Template.objects.all().values())
+        for i in range(len(template_list)):
+            mydict = template_list[i]
+            verse_list = list(Verse.objects.filter(template_id=mydict['id']).values())
+            # for index in range(len(verse_list)):
+            #     dict = verse_list[index]
+            #     dict['sentenceList'] = list(Sentence.objects.filter(verse_id=dict['id']).values())
+            mydict['verse_list'] = verse_list
 
-        return JsonResponse(templatelist, safe=False)
+        return JsonResponse(template_list, safe=False)
         # return JsonResponse(['love', 'money', 'sex'], safe=False)
     except ValueError as e:
         #

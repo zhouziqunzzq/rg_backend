@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Template, Sentence, Verse
+from .models import Template, Verse
+
 
 # class templateAdmin(admin.ModelAdmin):
 #     list_display = ('template_name',)
@@ -12,10 +13,10 @@ from .models import Template, Sentence, Verse
 #         return instance.template.name
 
 
-class sentenceAdmin(admin.ModelAdmin):
-    list_display = ('wordCount', 'rhyme_pinyin', 'rhyme_type','verse')
+# class sentenceAdmin(admin.ModelAdmin):
+#     list_display = ('wordCount', 'rhyme_pinyin', 'rhyme_type', 'verse')
 
 
 admin.site.register(Template)
-admin.site.register(Sentence, sentenceAdmin)
+# admin.site.register(Sentence, sentenceAdmin)
 admin.site.register(Verse)
