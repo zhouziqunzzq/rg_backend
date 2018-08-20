@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
 from urllib import request as pyrequest
-from urllib.parse import quote
+from urllib.parse import quote, urlencode
 import string
 import json
 
@@ -19,10 +19,9 @@ def generate_verse(request):
     rhyme_mode = request.GET.get('rhyme_mode')
     rhyme_style_id = request.GET.get('rhyme_style_id')
 
-    # TODO: generate first sentence from given keyword
-    url = settings.FS_GENERATE_API + "?keyword={}".format(keyword)
-    url = quote(url, safe=string.printable)
-    rst = pyrequest.urlopen(url)
+    # generate first sentence from given keyword
+    post_data = urlencode({'keyword': keyword}).encode('utf-8')
+    rst = pyrequest.urlopen(settings.FS_GENERATE_API, post_data)
     rst = rst.read().decode('utf-8')
     rst = json.loads(rst)
     # print(rst)
@@ -30,9 +29,12 @@ def generate_verse(request):
         keyword = rst['sentence']
     # print(keyword)
 
-    url = settings.TF_VERSE_GENERATE_API + "?text={}&num_sentence={}&target_length={}&rhyme_mode={}&rhyme_style_id={}".format(
-        keyword, num_sentence, target_length, rhyme_mode, rhyme_style_id
-    )
-    url = quote(url, safe=string.printable)
-    rst = pyrequest.urlopen(url)
+    post_data = urlencode({
+        'text': keyword,
+        'num_sentence': num_sentence,
+        'target_length': target_length,
+        'rhyme_mode': rhyme_mode,
+        'rhyme_style_id': rhyme_style_id,
+    }).encode('utf-8')
+    rst = pyrequest.urlopen(settings.TF_VERSE_GENERATE_API, post_data)
     return HttpResponse(rst.read().decode('utf-8'), content_type="application/json")
