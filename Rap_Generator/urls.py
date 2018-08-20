@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^co_exist/', generate_coOcurrence),
     url(r'^crawler', generate_crawler),
     url(r'^generate/verse', generate_verse),
+    url(r'^generate/first_sentence', generate_first_sentence),
 
     # (?P<str>[a-zA-Z]+
 ]

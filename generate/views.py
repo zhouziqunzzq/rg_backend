@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from urllib import request as pyrequest
 from urllib.parse import quote, urlencode
 import string
 import json
+import jieba
 
 
 def generate_verse(request):
@@ -24,10 +25,8 @@ def generate_verse(request):
     rst = pyrequest.urlopen(settings.FS_GENERATE_API, post_data)
     rst = rst.read().decode('utf-8')
     rst = json.loads(rst)
-    # print(rst)
     if rst['result']:  # TODO: call crawler if first sentence generation failed
         keyword = rst['sentence']
-    # print(keyword)
 
     post_data = urlencode({
         'text': keyword,
@@ -38,3 +37,16 @@ def generate_verse(request):
     }).encode('utf-8')
     rst = pyrequest.urlopen(settings.TF_VERSE_GENERATE_API, post_data)
     return HttpResponse(rst.read().decode('utf-8'), content_type="application/json")
+
+
+def generate_first_sentence(request):
+    keyword = request.GET.get('keyword')
+
+    # generate first sentence from given keyword
+    post_data = urlencode({'keyword': keyword}).encode('utf-8')
+    rst = pyrequest.urlopen(settings.FS_GENERATE_API, post_data)
+    rst = rst.read().decode('utf-8')
+    rst = json.loads(rst)
+    if rst['result']:  # TODO: call crawler if first sentence generation failed
+        rst['sentence'] = list(jieba.cut(rst['sentence'], cut_all=False))
+    return JsonResponse(rst)
