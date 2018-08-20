@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^crawler', generate_crawler),
     url(r'^generate/verse', generate_verse),
     url(r'^generate/first_sentence', generate_first_sentence),
+    url(r'^generate/next_sentence', generate_next_sentence),
 
     # (?P<str>[a-zA-Z]+
 ]

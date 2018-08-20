@@ -3,6 +3,8 @@ from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 from urllib import request as pyrequest
 from urllib.parse import quote, urlencode
+from rest_framework.response import Response
+from rest_framework import status
 import string
 import json
 import jieba
@@ -50,3 +52,13 @@ def generate_first_sentence(request):
     if rst['result']:  # TODO: call crawler if first sentence generation failed
         rst['sentence'] = list(jieba.cut(rst['sentence'], cut_all=False))
     return JsonResponse(rst)
+
+
+def generate_next_sentence(request):
+    if request.POST:
+        sentence = request.POST.get('sentence')
+
+        # TODO: call tf to generate next sentence
+        return JsonResponse(["腿", "搁", "在", "办公桌", "上"], safe=False)
+    else:
+        return Response("Method now allowed", status.HTTP_405_METHOD_NOT_ALLOWED)
