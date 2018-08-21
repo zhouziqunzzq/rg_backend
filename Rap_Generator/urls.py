@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^templates/', get_templates),
     url(r'^co_exist/', generate_coOcurrence),
     url(r'^crawler/', generate_crawler),
+    url(r'^rhyme/', generate_rhyme),
     url(r'^generate/verse', generate_verse),
     url(r'^generate/first_sentence', generate_first_sentence),
     url(r'^generate/next_sentence', generate_next_sentence),
