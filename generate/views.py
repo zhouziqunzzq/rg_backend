@@ -71,7 +71,32 @@ def generate_next_sentence(request):
     if request.POST:
         sentence = request.POST.get('sentence')
 
-        # TODO: call tf to generate next sentence
-        return JsonResponse(["腿", "搁", "在", "办公桌", "上"], safe=False)
+        # call tf to generate next sentence
+        post_data = urlencode({'text': sentence}).encode('utf-8')
+        rst = pyrequest.urlopen(settings.NS_GENERATE_API, post_data)
+        rst = rst.read().decode('utf-8')
+        return HttpResponse(rst)
+    else:
+        return HttpResponse(status=405)
+
+
+def generate_freestyle(request):
+    if request.GET:
+        keyword = request.GET.get('keyword')
+        num_sentence = request.GET.get('num_sentence')
+
+        # generate first sentence from given keyword
+        post_data = urlencode({'keyword': keyword}).encode('utf-8')
+        rst = pyrequest.urlopen(settings.FS_GENERATE_API, post_data)
+        rst = rst.read().decode('utf-8')
+        rst = json.loads(rst)
+        if rst['result']:  # TODO: call crawler if first sentence generation failed
+            keyword = rst['sentence']
+
+        # call tf to generate freestyle
+        post_data = urlencode({'text': keyword, 'num_sentence': num_sentence}).encode('utf-8')
+        rst = pyrequest.urlopen(settings.FREESTYLE_GENERATE_API, post_data)
+        rst = rst.read().decode('utf-8')
+        return HttpResponse(rst)
     else:
         return HttpResponse(status=405)

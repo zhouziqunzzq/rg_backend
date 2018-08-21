@@ -138,3 +138,7 @@ TF_VERSE_GENERATE_INTERVAL = 5
 
 # first sentence flask server settings
 FS_GENERATE_API = 'http://127.0.0.1:10001/generate/first_sentence'
+
+# freestyle and next sentence flask server settings
+FREESTYLE_GENERATE_API = 'http://127.0.0.1:10002/generate/freestyle'
+NS_GENERATE_API = 'http://127.0.0.1:10002/generate/next_sentence'
