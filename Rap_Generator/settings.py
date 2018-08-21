@@ -133,6 +133,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # tf flask server settings
 TF_VERSE_GENERATE_API = 'http://127.0.0.1:10000/generate/verse'
+TF_VERSE_GENERATE_MAX_RETRY = 3
+TF_VERSE_GENERATE_INTERVAL = 5
 
 # first sentence flask server settings
 FS_GENERATE_API = 'http://127.0.0.1:10001/generate/first_sentence'
